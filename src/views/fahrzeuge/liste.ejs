@@ -21,6 +21,7 @@
         <tr>
           <th>Name</th>
           <th>Typ</th>
+          <th>Listenpreis</th>
           <th>Kaufpreis</th>
           <th>Leistung</th>
           <th>Verbrauch</th>
@@ -33,6 +34,7 @@
           <tr>
             <td><%= f.name %></td>
             <td><span class="badge <%= f.typ === 'EV' ? 'ev' : 'ice' %>"><%= f.typ %></span></td>
+            <td><%= f.listenpreis ? f.listenpreis.toLocaleString('de-DE') + ' \u20ac' : '\u2014' %></td>
             <td><%= f.kaufpreis.toLocaleString('de-DE') %> &euro;</td>
             <td><%= f.leistung_kw ? f.leistung_kw + ' kW (' + Math.round(f.leistung_kw * 1.35962) + ' PS)' : '&mdash;' %></td>
             <td>

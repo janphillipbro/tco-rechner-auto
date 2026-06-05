@@ -37,7 +37,7 @@ router.get('/neu', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const { name, typ, kaufpreis, leistung_kw, reichweite_km, stromverbrauch_kwh,
+  const { name, typ, listenpreis, kaufpreis, leistung_kw, reichweite_km, stromverbrauch_kwh,
           verbrauch_l, co2_g_km, hubraum_ccm, wertverlust_prozent,
           wartung_jaehrlich, versicherung_jaehrlich, ladezeit_min } = req.body;
 
@@ -49,12 +49,14 @@ router.post('/', (req, res) => {
   }
 
   db.prepare(`
-    INSERT INTO fahrzeuge (name, typ, kaufpreis, leistung_kw, reichweite_km,
+    INSERT INTO fahrzeuge (name, typ, listenpreis, kaufpreis, leistung_kw, reichweite_km,
       stromverbrauch_kwh, verbrauch_l, co2_g_km, hubraum_ccm,
       wertverlust_prozent, wartung_jaehrlich, versicherung_jaehrlich, ladezeit_min)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `).run(
-    name, typ, parseFloat(kaufpreis),
+    name, typ,
+    listenpreis != null && listenpreis !== '' ? parseFloat(listenpreis) : null,
+    parseFloat(kaufpreis),
     leistung_kw != null && leistung_kw !== '' ? parseInt(leistung_kw) : null,
     reichweite_km != null && reichweite_km !== '' ? parseInt(reichweite_km) : null,
     stromverbrauch_kwh != null && stromverbrauch_kwh !== '' ? parseFloat(stromverbrauch_kwh) : null,
@@ -81,7 +83,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/:id', (req, res) => {
-  const { name, typ, kaufpreis, leistung_kw, reichweite_km, stromverbrauch_kwh,
+  const { name, typ, listenpreis, kaufpreis, leistung_kw, reichweite_km, stromverbrauch_kwh,
           verbrauch_l, co2_g_km, hubraum_ccm, wertverlust_prozent,
           wartung_jaehrlich, versicherung_jaehrlich, ladezeit_min } = req.body;
 
@@ -95,12 +97,14 @@ router.post('/:id', (req, res) => {
   }
 
   db.prepare(`
-    UPDATE fahrzeuge SET name=?, typ=?, kaufpreis=?, leistung_kw=?, reichweite_km=?,
+    UPDATE fahrzeuge SET name=?, typ=?, listenpreis=?, kaufpreis=?, leistung_kw=?, reichweite_km=?,
       stromverbrauch_kwh=?, verbrauch_l=?, co2_g_km=?, hubraum_ccm=?,
       wertverlust_prozent=?, wartung_jaehrlich=?, versicherung_jaehrlich=?, ladezeit_min=?
     WHERE id=?
   `).run(
-    name, typ, parseFloat(kaufpreis),
+    name, typ,
+    listenpreis != null && listenpreis !== '' ? parseFloat(listenpreis) : null,
+    parseFloat(kaufpreis),
     leistung_kw != null && leistung_kw !== '' ? parseInt(leistung_kw) : null,
     reichweite_km != null && reichweite_km !== '' ? parseInt(reichweite_km) : null,
     stromverbrauch_kwh != null && stromverbrauch_kwh !== '' ? parseFloat(stromverbrauch_kwh) : null,

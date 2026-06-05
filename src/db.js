@@ -19,6 +19,7 @@ db.exec(`
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     typ TEXT NOT NULL CHECK(typ IN ('EV', 'ICE')),
+    listenpreis REAL,
     kaufpreis REAL NOT NULL,
     leistung_kw INTEGER,
     reichweite_km INTEGER,
@@ -62,6 +63,7 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_vf_fahrzeug_id ON vergleich_fahrzeuge(fahrzeug_id);
 `);
 
+try { db.exec(`ALTER TABLE fahrzeuge ADD COLUMN listenpreis REAL`); } catch (e) {}
 try { db.exec(`ALTER TABLE fahrzeuge ADD COLUMN ladezeit_min INTEGER`); } catch (e) {}
 try { db.exec(`ALTER TABLE vergleich_fahrzeuge ADD COLUMN leasingrate REAL`); } catch (e) {}
 try { db.exec(`ALTER TABLE vergleich_fahrzeuge ADD COLUMN sonderzahlung REAL DEFAULT 0`); } catch (e) {}
