@@ -126,38 +126,46 @@ const fahrzeuge = [
   }
 ];
 
-const insert = db.prepare(`
-  INSERT INTO fahrzeuge (name, typ, listenpreis, kaufpreis, leistung_kw, reichweite_km,
-    stromverbrauch_kwh, verbrauch_l, co2_g_km, hubraum_ccm,
-    wertverlust_prozent, wartung_jaehrlich, versicherung_jaehrlich, ladezeit_min)
-  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-`);
+function seed() {
+  const count = db.prepare('SELECT COUNT(*) as cnt FROM fahrzeuge').get().cnt;
+  if (count > 0) {
+    console.log(`Datenbank enthaelt bereits ${count} Fahrzeuge. Ueberspringe Seed.`);
+    return;
+  }
 
-const count = db.prepare('SELECT COUNT(*) as cnt FROM fahrzeuge').get().cnt;
-if (count > 0) {
-  console.log(`Datenbank enthaelt bereits ${count} Fahrzeuge. Ueberspringe Seed.`);
-  process.exit(0);
+  const insert = db.prepare(`
+    INSERT INTO fahrzeuge (name, typ, listenpreis, kaufpreis, leistung_kw, reichweite_km,
+      stromverbrauch_kwh, verbrauch_l, co2_g_km, hubraum_ccm,
+      wertverlust_prozent, wartung_jaehrlich, versicherung_jaehrlich, ladezeit_min)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `);
+
+  const insertMany = db.transaction((fahrzeuge) => {
+    fahrzeuge.forEach(f => {
+      insert.run(
+        f.name, f.typ,
+        f.listenpreis || null,
+        f.kaufpreis,
+        f.leistung_kw || null,
+        f.reichweite_km || null,
+        f.stromverbrauch_kwh || null,
+        f.verbrauch_l || null,
+        f.co2_g_km || null,
+        f.hubraum_ccm || null,
+        f.wertverlust_prozent || null,
+        f.wartung_jaehrlich || null,
+        f.versicherung_jaehrlich || null,
+        f.ladezeit_min || null
+      );
+    });
+  });
+
+  insertMany(fahrzeuge);
+  console.log(`${fahrzeuge.length} Fahrzeuge eingefuegt.`);
 }
 
-const insertMany = db.transaction((fahrzeuge) => {
-  fahrzeuge.forEach(f => {
-    insert.run(
-      f.name, f.typ,
-      f.listenpreis || null,
-      f.kaufpreis,
-      f.leistung_kw || null,
-      f.reichweite_km || null,
-      f.stromverbrauch_kwh || null,
-      f.verbrauch_l || null,
-      f.co2_g_km || null,
-      f.hubraum_ccm || null,
-      f.wertverlust_prozent || null,
-      f.wartung_jaehrlich || null,
-      f.versicherung_jaehrlich || null,
-      f.ladezeit_min || null
-    );
-  });
-});
+module.exports = seed;
 
-insertMany(fahrzeuge);
-console.log(`${fahrzeuge.length} Fahrzeuge eingefuegt.`);
+if (require.main === module) {
+  seed();
+}

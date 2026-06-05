@@ -8,7 +8,10 @@ const vergleicheRoutes = require('./src/routes/vergleiche');
 
 const count = db.prepare('SELECT COUNT(*) as cnt FROM fahrzeuge').get().cnt;
 if (count === 0) {
-  require('./seed');
+  console.log('Keine Fahrzeuge in DB, fuehre Seed aus...');
+  require('./seed')();
+} else {
+  console.log(`${count} Fahrzeuge in Datenbank.`);
 }
 
 const app = express();
