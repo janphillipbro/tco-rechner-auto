@@ -11,7 +11,11 @@
         <div class="value positive"><%= Math.round(e.tco.gesamtkosten).toLocaleString('de-DE') %> &euro;</div>
         <div style="font-size:0.8rem; color:#888;">
           <%= e.tco.kostenProKm.toFixed(2).replace('.', ',') %> &euro;/km
-          <% if (e.finanzierung === 'kredit') { %>
+          <% if (e.finanzierung === 'leasing') { %>
+            &middot; Leasing <%= e.leasingrate.toLocaleString('de-DE') %> &euro;/Monat
+            <% if (e.sonderzahlung > 0) { %>&middot; SZ <%= e.sonderzahlung.toLocaleString('de-DE') %> &euro;<% } %>
+            <% if (e.wartungInklusive) { %>&middot; Wartung inkl.<% } %>
+          <% } else if (e.finanzierung === 'kredit') { %>
             &middot; Kredit: <%= e.kreditbetrag.toLocaleString('de-DE') %> &euro;
           <% } else { %>
             &middot; Barzahlung
@@ -84,7 +88,11 @@
       <tr>
         <td>Finanzierungsart</td>
         <% ergebnisse.forEach(e => { %>
-          <td><%= e.finanzierung === 'kredit' ? 'Kredit' : 'Barzahlung' %></td>
+          <td>
+            <% if (e.finanzierung === 'leasing') { %>Leasing<% } %>
+            <% if (e.finanzierung === 'kredit') { %>Kredit<% } %>
+            <% if (e.finanzierung === 'cash') { %>Barzahlung<% } %>
+          </td>
         <% }) %>
       </tr>
       <tr>
@@ -117,10 +125,13 @@
         <input type="hidden" name="spritpreis_ct" value="<%= params.spritpreisCt %>">
         <input type="hidden" name="anlagerendite_prozent" value="<%= params.anlagerenditeProzent %>">
         <input type="hidden" name="kreditzins_prozent" value="<%= params.kreditzinsProzent %>">
-        <% ergebnisse.forEach((e, i) => { %>
+        <% ergebnisse.forEach((e) => { %>
           <input type="hidden" name="fahrzeug_ids" value="<%= e.fahrzeug.id %>">
           <input type="hidden" name="finanzierung_<%= e.fahrzeug.id %>" value="<%= e.finanzierung %>">
           <input type="hidden" name="kreditbetrag_<%= e.fahrzeug.id %>" value="<%= e.kreditbetrag %>">
+          <input type="hidden" name="leasingrate_<%= e.fahrzeug.id %>" value="<%= e.leasingrate %>">
+          <input type="hidden" name="sonderzahlung_<%= e.fahrzeug.id %>" value="<%= e.sonderzahlung %>">
+          <% if (e.wartungInklusive) { %><input type="hidden" name="wartung_inklusive_<%= e.fahrzeug.id %>" value="1"><% } %>
         <% }) %>
         <button type="submit" class="btn btn-primary">Vergleich speichern</button>
       </form>

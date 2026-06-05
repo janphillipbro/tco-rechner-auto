@@ -32,19 +32,27 @@ function berechneTCO(fahrzeug, params) {
     anlagerenditeProzent,
     kreditzinsProzent,
     finanzierung,
-    kreditbetrag
+    kreditbetrag,
+    leasingrate,
+    sonderzahlung,
+    wartungInklusive
   } = params;
 
   const typ = fahrzeug.typ;
   const kaufpreis = fahrzeug.kaufpreis;
+  const isLeasing = finanzierung === 'leasing';
 
   const defaults = DEFAULTS[typ];
   const wertverlustProzent = fahrzeug.wertverlust_prozent != null ? fahrzeug.wertverlust_prozent : defaults.wertverlust_prozent;
-  const wartungJaehrlich = fahrzeug.wartung_jaehrlich != null ? fahrzeug.wartung_jaehrlich : defaults.wartung_jaehrlich;
+  let wartungJaehrlich = fahrzeug.wartung_jaehrlich != null ? fahrzeug.wartung_jaehrlich : defaults.wartung_jaehrlich;
   const versicherungJaehrlich = fahrzeug.versicherung_jaehrlich != null ? fahrzeug.versicherung_jaehrlich : defaults.versicherung_jaehrlich;
 
-  const wertverlustJaehrlich = Math.round(kaufpreis * (wertverlustProzent / 100) * 100) / 100;
-  const restwert = Math.round(Math.max(0, kaufpreis - (wertverlustJaehrlich * haltedauerJahre)) * 100) / 100;
+  if (isLeasing && wartungInklusive) {
+    wartungJaehrlich = 0;
+  }
+
+  const wertverlustJaehrlich = isLeasing ? 0 : Math.round(kaufpreis * (wertverlustProzent / 100) * 100) / 100;
+  const restwert = isLeasing ? 0 : Math.round(Math.max(0, kaufpreis - (wertverlustJaehrlich * haltedauerJahre)) * 100) / 100;
 
   let energiekostenJaehrlich;
   if (typ === 'EV') {
@@ -74,6 +82,12 @@ function berechneTCO(fahrzeug, params) {
   let finanzierungsKosten;
   if (finanzierung === 'kredit') {
     finanzierungsKosten = Math.round(kreditbetrag * (kreditzinsProzent / 100) * haltedauerJahre * 100) / 100;
+  } else if (finanzierung === 'leasing') {
+    const leasingrateMonat = leasingrate || 0;
+    const sz = sonderzahlung || 0;
+    const leasingGesamt = leasingrateMonat * 12 * haltedauerJahre + sz;
+    const szOppKosten = sz * (Math.pow(1 + anlagerenditeProzent / 100, haltedauerJahre) - 1);
+    finanzierungsKosten = Math.round((leasingGesamt + szOppKosten) * 100) / 100;
   } else {
     finanzierungsKosten = Math.round(
       kaufpreis * (Math.pow(1 + anlagerenditeProzent / 100, haltedauerJahre) - 1) * 100
@@ -102,8 +116,14 @@ function berechneEigenkapitalVerteilung(fahrzeuge, eigenkapital, finanzierungen,
   for (let i = 0; i < fahrzeuge.length; i++) {
     const fz = fahrzeuge[i];
     const finanzierung = finanzierungen[i];
-    const equityUsed = Math.min(remaining, fz.kaufpreis);
-    remaining -= equityUsed;
+    let equityUsed = 0;
+
+    if (finanzierung === 'leasing') {
+      equityUsed = 0;
+    } else {
+      equityUsed = Math.min(remaining, fz.kaufpreis);
+      remaining -= equityUsed;
+    }
 
     let loanAmount = 0;
     if (finanzierung === 'kredit') {

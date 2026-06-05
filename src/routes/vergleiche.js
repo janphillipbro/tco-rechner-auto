@@ -45,6 +45,17 @@ router.post('/', (req, res) => {
     const raw = req.body['kreditbetrag_' + fz.id];
     return raw ? parseFloat(raw) : null;
   });
+  const leasingratenArr = ausgewaehlte.map(fz => {
+    const raw = req.body['leasingrate_' + fz.id];
+    return raw ? parseFloat(raw) : null;
+  });
+  const sonderzahlungenArr = ausgewaehlte.map(fz => {
+    const raw = req.body['sonderzahlung_' + fz.id];
+    return raw ? parseFloat(raw) : 0;
+  });
+  const wartungInklusiveArr = ausgewaehlte.map(fz => {
+    return req.body['wartung_inklusive_' + fz.id] === '1';
+  });
 
   const params = {
     haltedauerJahre: parseInt(haltedauer_jahre) || 5,
@@ -63,6 +74,9 @@ router.post('/', (req, res) => {
   const ergebnisse = ausgewaehlte.map((fz, i) => {
     const fin = finanzierungenArr[i];
     const kredit = kreditbetraegeArr[i];
+    const leasingrate = leasingratenArr[i];
+    const sonderzahlung = sonderzahlungenArr[i];
+    const wartungInklusive = wartungInklusiveArr[i];
     const loanAmount = fin === 'kredit'
       ? (kredit || Math.max(0, fz.kaufpreis - eigenkapitalVerteilung[i].equityUsed))
       : 0;
@@ -75,7 +89,10 @@ router.post('/', (req, res) => {
       anlagerenditeProzent: params.anlagerenditeProzent,
       kreditzinsProzent: params.kreditzinsProzent,
       finanzierung: fin,
-      kreditbetrag: loanAmount
+      kreditbetrag: loanAmount,
+      leasingrate,
+      sonderzahlung,
+      wartungInklusive
     };
 
     const tco = berechneTCO(fz, tcoParams);
@@ -83,6 +100,9 @@ router.post('/', (req, res) => {
       fahrzeug: fz,
       finanzierung: fin,
       kreditbetrag: loanAmount,
+      leasingrate: leasingrate || 0,
+      sonderzahlung: sonderzahlung || 0,
+      wartungInklusive,
       equityUsed: eigenkapitalVerteilung[i].equityUsed,
       tco
     };
@@ -119,6 +139,17 @@ router.post('/speichern', (req, res) => {
     const raw = req.body['kreditbetrag_' + id];
     return raw ? parseFloat(raw) : null;
   });
+  const leasingratenArr = ids.map(id => {
+    const raw = req.body['leasingrate_' + id];
+    return raw ? parseFloat(raw) : null;
+  });
+  const sonderzahlungenArr = ids.map(id => {
+    const raw = req.body['sonderzahlung_' + id];
+    return raw ? parseFloat(raw) : 0;
+  });
+  const wartungInklusiveArr = ids.map(id => {
+    return req.body['wartung_inklusive_' + id] === '1' ? 1 : 0;
+  });
 
   const result = db.prepare(`
     INSERT INTO vergleiche (name, eigenkapital, haltedauer_jahre, jahreskilometer,
@@ -138,8 +169,8 @@ router.post('/speichern', (req, res) => {
   const vergleichId = result.lastInsertRowid;
 
   const insertVf = db.prepare(`
-    INSERT INTO vergleich_fahrzeuge (vergleich_id, fahrzeug_id, finanzierung, kreditbetrag)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO vergleich_fahrzeuge (vergleich_id, fahrzeug_id, finanzierung, kreditbetrag, leasingrate, sonderzahlung, wartung_inklusive)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
   `);
 
   ids.forEach((fzId, i) => {
@@ -147,7 +178,10 @@ router.post('/speichern', (req, res) => {
       vergleichId,
       parseInt(fzId),
       finanzierungenArr[i],
-      kreditbetraegeArr[i]
+      kreditbetraegeArr[i],
+      leasingratenArr[i],
+      sonderzahlungenArr[i],
+      wartungInklusiveArr[i]
     );
   });
 
@@ -183,13 +217,19 @@ router.get('/:id', (req, res) => {
       anlagerenditeProzent: params.anlagerenditeProzent,
       kreditzinsProzent: params.kreditzinsProzent,
       finanzierung: vf.finanzierung,
-      kreditbetrag: vf.kreditbetrag || 0
+      kreditbetrag: vf.kreditbetrag || 0,
+      leasingrate: vf.leasingrate,
+      sonderzahlung: vf.sonderzahlung || 0,
+      wartungInklusive: vf.wartung_inklusive === 1
     });
 
     return {
       fahrzeug: vf,
       finanzierung: vf.finanzierung,
       kreditbetrag: vf.kreditbetrag || 0,
+      leasingrate: vf.leasingrate || 0,
+      sonderzahlung: vf.sonderzahlung || 0,
+      wartungInklusive: vf.wartung_inklusive === 1,
       tco
     };
   });

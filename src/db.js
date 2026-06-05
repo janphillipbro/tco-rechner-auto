@@ -48,9 +48,11 @@ db.exec(`
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     vergleich_id INTEGER NOT NULL REFERENCES vergleiche(id) ON DELETE CASCADE,
     fahrzeug_id INTEGER NOT NULL REFERENCES fahrzeuge(id) ON DELETE RESTRICT,
-    finanzierung TEXT NOT NULL CHECK(finanzierung IN ('cash', 'kredit')),
+    finanzierung TEXT NOT NULL CHECK(finanzierung IN ('cash', 'kredit', 'leasing')),
     kreditbetrag REAL,
-    CHECK((finanzierung = 'kredit' AND kreditbetrag IS NOT NULL AND kreditbetrag > 0) OR (finanzierung = 'cash'))
+    leasingrate REAL,
+    sonderzahlung REAL DEFAULT 0,
+    wartung_inklusive INTEGER DEFAULT 0
   );
 `);
 
@@ -58,5 +60,9 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_vf_vergleich_id ON vergleich_fahrzeuge(vergleich_id);
   CREATE INDEX IF NOT EXISTS idx_vf_fahrzeug_id ON vergleich_fahrzeuge(fahrzeug_id);
 `);
+
+try { db.exec(`ALTER TABLE vergleich_fahrzeuge ADD COLUMN leasingrate REAL`); } catch (e) {}
+try { db.exec(`ALTER TABLE vergleich_fahrzeuge ADD COLUMN sonderzahlung REAL DEFAULT 0`); } catch (e) {}
+try { db.exec(`ALTER TABLE vergleich_fahrzeuge ADD COLUMN wartung_inklusive INTEGER DEFAULT 0`); } catch (e) {}
 
 module.exports = db;

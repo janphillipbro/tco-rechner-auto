@@ -21,12 +21,16 @@
             <span class="badge <%= f.typ === 'EV' ? 'ev' : 'ice' %>"><%= f.typ %></span>
             <%= f.kaufpreis.toLocaleString('de-DE') %> &euro;
           </label>
-          <div style="margin-top:0.5rem; margin-left:1.5rem; display:flex; gap:0.5rem; align-items:center;">
+          <div style="margin-top:0.5rem; margin-left:1.5rem; display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
             <select name="finanzierung_<%= f.id %>">
               <option value="cash">Barzahlung</option>
               <option value="kredit">Kredit</option>
+              <option value="leasing">Leasing</option>
             </select>
-            <input type="number" name="kreditbetrag_<%= f.id %>" placeholder="Kreditbetrag (EUR)" step="0.01" style="width:180px;">
+            <input type="number" name="kreditbetrag_<%= f.id %>" placeholder="Kreditbetrag (EUR)" step="0.01" style="width:160px;">
+            <input type="number" name="leasingrate_<%= f.id %>" placeholder="Leasingrate/Monat (EUR)" step="0.01" style="width:180px;">
+            <input type="number" name="sonderzahlung_<%= f.id %>" placeholder="Sonderzahlung (EUR)" step="0.01" style="width:160px;">
+            <label style="font-size:0.85rem; white-space:nowrap;"><input type="checkbox" name="wartung_inklusive_<%= f.id %>" value="1"> Wartung inkl.</label>
           </div>
         </div>
       <% }) %>
