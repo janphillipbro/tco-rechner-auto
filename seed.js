@@ -1,49 +1,48 @@
 const db = require('./src/db');
 
 const fahrzeuge = [
-  // --- Top 10 Verbrenner ---
+  // --- Top 10 Verbrenner (KBA Mai 2026) ---
   {
     name: 'VW Golf 1.5 eTSI', typ: 'ICE', kaufpreis: 30500,
     leistung_kw: 110, verbrauch_l: 5.4, co2_g_km: 123, hubraum_ccm: 1498
-  },
-  {
-    name: 'VW Tiguan 2.0 TDI', typ: 'ICE', kaufpreis: 43500,
-    leistung_kw: 110, verbrauch_l: 5.5, co2_g_km: 143, hubraum_ccm: 1968
   },
   {
     name: 'VW T-Roc 1.5 TSI', typ: 'ICE', kaufpreis: 29500,
     leistung_kw: 110, verbrauch_l: 5.7, co2_g_km: 130, hubraum_ccm: 1498
   },
   {
+    name: 'VW Tiguan 2.0 TDI', typ: 'ICE', kaufpreis: 43500,
+    leistung_kw: 110, verbrauch_l: 5.5, co2_g_km: 143, hubraum_ccm: 1968
+  },
+  {
     name: 'Opel Corsa 1.2', typ: 'ICE', kaufpreis: 20500,
     leistung_kw: 74, verbrauch_l: 5.5, co2_g_km: 124, hubraum_ccm: 1199
+  },
+  {
+    name: 'BMW X1 sDrive18i', typ: 'ICE', kaufpreis: 39500,
+    leistung_kw: 100, verbrauch_l: 6.5, co2_g_km: 148, hubraum_ccm: 1499,
+    wertverlust_prozent: 16, wartung_jaehrlich: 750, versicherung_jaehrlich: 950
+  },
+  {
+    name: 'Mini Cooper C', typ: 'ICE', kaufpreis: 28000,
+    leistung_kw: 115, verbrauch_l: 5.9, co2_g_km: 133, hubraum_ccm: 1499
   },
   {
     name: 'Skoda Octavia 2.0 TDI', typ: 'ICE', kaufpreis: 32500,
     leistung_kw: 110, verbrauch_l: 4.9, co2_g_km: 128, hubraum_ccm: 1968
   },
   {
+    name: 'BMW X3 xDrive20d', typ: 'ICE', kaufpreis: 52500,
+    leistung_kw: 140, verbrauch_l: 6.0, co2_g_km: 157, hubraum_ccm: 1995,
+    wertverlust_prozent: 16, wartung_jaehrlich: 850, versicherung_jaehrlich: 1000
+  },
+  {
+    name: 'VW T-Cross 1.0 TSI', typ: 'ICE', kaufpreis: 23500,
+    leistung_kw: 81, verbrauch_l: 5.6, co2_g_km: 128, hubraum_ccm: 999
+  },
+  {
     name: 'VW Passat 2.0 TDI', typ: 'ICE', kaufpreis: 46500,
     leistung_kw: 110, verbrauch_l: 5.3, co2_g_km: 139, hubraum_ccm: 1968
-  },
-  {
-    name: 'BMW 320i', typ: 'ICE', kaufpreis: 44500,
-    leistung_kw: 135, verbrauch_l: 6.1, co2_g_km: 138, hubraum_ccm: 1998,
-    wertverlust_prozent: 16, wartung_jaehrlich: 850, versicherung_jaehrlich: 950
-  },
-  {
-    name: 'Audi A4 35 TDI', typ: 'ICE', kaufpreis: 46000,
-    leistung_kw: 120, verbrauch_l: 5.2, co2_g_km: 136, hubraum_ccm: 1968,
-    wertverlust_prozent: 16, wartung_jaehrlich: 800, versicherung_jaehrlich: 950
-  },
-  {
-    name: 'Mercedes C 200', typ: 'ICE', kaufpreis: 48000,
-    leistung_kw: 150, verbrauch_l: 6.4, co2_g_km: 145, hubraum_ccm: 1991,
-    wertverlust_prozent: 17, wartung_jaehrlich: 900, versicherung_jaehrlich: 1000
-  },
-  {
-    name: 'Fiat 500 Hybrid', typ: 'ICE', kaufpreis: 18500,
-    leistung_kw: 51, verbrauch_l: 4.8, co2_g_km: 109, hubraum_ccm: 999
   },
 
   // --- Top 10 Elektro ---
