@@ -63,24 +63,12 @@ const fahrzeuge = [
     versicherung_jaehrlich: 840, wartung_jaehrlich: 650
   },
 
-  // --- Top 10 Elektro ---
+  // --- Top 10 Elektro (KBA Mai 2026) ---
   {
-    name: 'Tesla Model Y', typ: 'EV',
-    listenpreis: 44990, kaufpreis: 42990,
-    leistung_kw: 220, reichweite_km: 455, stromverbrauch_kwh: 16.9, ladezeit_min: 25,
-    versicherung_jaehrlich: 920
-  },
-  {
-    name: 'VW ID.4 Pro', typ: 'EV',
-    listenpreis: 48200, kaufpreis: 40900,
-    leistung_kw: 210, reichweite_km: 520, stromverbrauch_kwh: 16.5, ladezeit_min: 28,
-    versicherung_jaehrlich: 830
-  },
-  {
-    name: 'Skoda Enyaq 85', typ: 'EV',
-    listenpreis: 46900, kaufpreis: 39800,
-    leistung_kw: 210, reichweite_km: 560, stromverbrauch_kwh: 15.8, ladezeit_min: 28,
-    versicherung_jaehrlich: 790
+    name: 'Skoda Elroq 85', typ: 'EV',
+    listenpreis: 41900, kaufpreis: 35900,
+    leistung_kw: 210, reichweite_km: 560, stromverbrauch_kwh: 16.5, ladezeit_min: 28,
+    versicherung_jaehrlich: 780
   },
   {
     name: 'VW ID.3 Pro S', typ: 'EV',
@@ -89,28 +77,40 @@ const fahrzeuge = [
     versicherung_jaehrlich: 740
   },
   {
+    name: 'Skoda Enyaq 85', typ: 'EV',
+    listenpreis: 46900, kaufpreis: 39800,
+    leistung_kw: 210, reichweite_km: 560, stromverbrauch_kwh: 15.8, ladezeit_min: 28,
+    versicherung_jaehrlich: 790
+  },
+  {
     name: 'Tesla Model 3', typ: 'EV',
     listenpreis: 42990, kaufpreis: 40990,
     leistung_kw: 208, reichweite_km: 513, stromverbrauch_kwh: 15.8, ladezeit_min: 25,
     versicherung_jaehrlich: 900
   },
   {
-    name: 'BMW i4 eDrive35', typ: 'EV',
-    listenpreis: 58500, kaufpreis: 50400,
-    leistung_kw: 210, reichweite_km: 480, stromverbrauch_kwh: 17.1, ladezeit_min: 30,
-    versicherung_jaehrlich: 960, wartung_jaehrlich: 500
+    name: 'Tesla Model Y', typ: 'EV',
+    listenpreis: 44990, kaufpreis: 42990,
+    leistung_kw: 220, reichweite_km: 455, stromverbrauch_kwh: 16.9, ladezeit_min: 25,
+    versicherung_jaehrlich: 920
   },
   {
-    name: 'Fiat 500e', typ: 'EV',
-    listenpreis: 29900, kaufpreis: 24900,
-    leistung_kw: 87, reichweite_km: 320, stromverbrauch_kwh: 14.3, ladezeit_min: 35,
-    versicherung_jaehrlich: 580
+    name: 'VW ID.7 Pro', typ: 'EV',
+    listenpreis: 53900, kaufpreis: 47900,
+    leistung_kw: 210, reichweite_km: 618, stromverbrauch_kwh: 16.0, ladezeit_min: 28,
+    versicherung_jaehrlich: 880
   },
   {
-    name: 'Audi Q4 e-tron 45', typ: 'EV',
-    listenpreis: 54800, kaufpreis: 47400,
-    leistung_kw: 210, reichweite_km: 530, stromverbrauch_kwh: 17.5, ladezeit_min: 28,
-    versicherung_jaehrlich: 940
+    name: 'BMW iX1 eDrive20', typ: 'EV',
+    listenpreis: 47900, kaufpreis: 42500,
+    leistung_kw: 150, reichweite_km: 440, stromverbrauch_kwh: 17.5, ladezeit_min: 29,
+    versicherung_jaehrlich: 920, wertverlust_prozent: 14
+  },
+  {
+    name: 'Mercedes CLA 250+ EQ', typ: 'EV',
+    listenpreis: 52400, kaufpreis: 47900,
+    leistung_kw: 200, reichweite_km: 695, stromverbrauch_kwh: 13.5, ladezeit_min: 22,
+    versicherung_jaehrlich: 980, wertverlust_prozent: 14
   },
   {
     name: 'Cupra Born 77 kWh', typ: 'EV',
@@ -119,10 +119,10 @@ const fahrzeuge = [
     versicherung_jaehrlich: 740
   },
   {
-    name: 'Hyundai Ioniq 5', typ: 'EV',
-    listenpreis: 48900, kaufpreis: 41900,
-    leistung_kw: 168, reichweite_km: 507, stromverbrauch_kwh: 17.0, ladezeit_min: 18,
-    versicherung_jaehrlich: 810
+    name: 'VW ID.4 Pro', typ: 'EV',
+    listenpreis: 48200, kaufpreis: 40900,
+    leistung_kw: 210, reichweite_km: 520, stromverbrauch_kwh: 16.5, ladezeit_min: 28,
+    versicherung_jaehrlich: 830
   }
 ];
 
