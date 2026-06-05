@@ -1,0 +1,57 @@
+<%- include('../layout', { active }) %>
+  <h1>Fahrzeuge</h1>
+
+  <div class="filter-bar">
+    <a href="/fahrzeuge" <%= filter === 'alle' ? 'class="active"' : '' %>>Alle</a>
+    <a href="/fahrzeuge?typ=EV" <%= filter === 'EV' ? 'class="active"' : '' %>>Elektro</a>
+    <a href="/fahrzeuge?typ=ICE" <%= filter === 'ICE' ? 'class="active"' : '' %>>Verbrenner</a>
+  </div>
+
+  <div class="actions">
+    <a href="/fahrzeuge/neu" class="btn btn-primary">Neues Fahrzeug</a>
+  </div>
+
+  <% if (fahrzeuge.length === 0) { %>
+    <div class="empty-state">
+      <p>Noch keine Fahrzeuge angelegt.</p>
+    </div>
+  <% } else { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Typ</th>
+          <th>Kaufpreis</th>
+          <th>Leistung</th>
+          <th>Verbrauch</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% fahrzeuge.forEach(f => { %>
+          <tr>
+            <td><%= f.name %></td>
+            <td><span class="badge <%= f.typ === 'EV' ? 'ev' : 'ice' %>"><%= f.typ %></span></td>
+            <td><%= f.kaufpreis.toLocaleString('de-DE') %> &euro;</td>
+            <td><%= f.leistung_kw || '&mdash;' %> kW</td>
+            <td>
+              <% if (f.typ === 'EV') { %>
+                <%= f.stromverbrauch_kwh ? f.stromverbrauch_kwh + ' kWh/100km' : '&mdash;' %>
+              <% } else { %>
+                <%= f.verbrauch_l ? f.verbrauch_l + ' L/100km' : '&mdash;' %>
+              <% } %>
+            </td>
+            <td>
+              <a href="/fahrzeuge/<%= f.id %>" class="btn btn-secondary">Bearbeiten</a>
+              <form action="/fahrzeuge/<%= f.id %>/delete" method="POST" class="inline-form">
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Wirklich l\u00f6schen?')">L\u00f6schen</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</main>
+</body>
+</html>
