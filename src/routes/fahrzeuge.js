@@ -55,15 +55,15 @@ router.post('/', (req, res) => {
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `).run(
     name, typ, parseFloat(kaufpreis),
-    leistung_kw ? parseInt(leistung_kw) : null,
-    reichweite_km ? parseInt(reichweite_km) : null,
-    stromverbrauch_kwh ? parseFloat(stromverbrauch_kwh) : null,
-    verbrauch_l ? parseFloat(verbrauch_l) : null,
-    co2_g_km ? parseInt(co2_g_km) : null,
-    hubraum_ccm ? parseInt(hubraum_ccm) : null,
-    wertverlust_prozent ? parseFloat(wertverlust_prozent) : null,
-    wartung_jaehrlich ? parseFloat(wartung_jaehrlich) : null,
-    versicherung_jaehrlich ? parseFloat(versicherung_jaehrlich) : null
+    leistung_kw != null && leistung_kw !== '' ? parseInt(leistung_kw) : null,
+    reichweite_km != null && reichweite_km !== '' ? parseInt(reichweite_km) : null,
+    stromverbrauch_kwh != null && stromverbrauch_kwh !== '' ? parseFloat(stromverbrauch_kwh) : null,
+    verbrauch_l != null && verbrauch_l !== '' ? parseFloat(verbrauch_l) : null,
+    co2_g_km != null && co2_g_km !== '' ? parseInt(co2_g_km) : null,
+    hubraum_ccm != null && hubraum_ccm !== '' ? parseInt(hubraum_ccm) : null,
+    wertverlust_prozent != null && wertverlust_prozent !== '' ? parseFloat(wertverlust_prozent) : null,
+    wartung_jaehrlich != null && wartung_jaehrlich !== '' ? parseFloat(wartung_jaehrlich) : null,
+    versicherung_jaehrlich != null && versicherung_jaehrlich !== '' ? parseFloat(versicherung_jaehrlich) : null
   );
 
   res.redirect('/fahrzeuge');
@@ -100,15 +100,15 @@ router.post('/:id', (req, res) => {
     WHERE id=?
   `).run(
     name, typ, parseFloat(kaufpreis),
-    leistung_kw ? parseInt(leistung_kw) : null,
-    reichweite_km ? parseInt(reichweite_km) : null,
-    stromverbrauch_kwh ? parseFloat(stromverbrauch_kwh) : null,
-    verbrauch_l ? parseFloat(verbrauch_l) : null,
-    co2_g_km ? parseInt(co2_g_km) : null,
-    hubraum_ccm ? parseInt(hubraum_ccm) : null,
-    wertverlust_prozent ? parseFloat(wertverlust_prozent) : null,
-    wartung_jaehrlich ? parseFloat(wartung_jaehrlich) : null,
-    versicherung_jaehrlich ? parseFloat(versicherung_jaehrlich) : null,
+    leistung_kw != null && leistung_kw !== '' ? parseInt(leistung_kw) : null,
+    reichweite_km != null && reichweite_km !== '' ? parseInt(reichweite_km) : null,
+    stromverbrauch_kwh != null && stromverbrauch_kwh !== '' ? parseFloat(stromverbrauch_kwh) : null,
+    verbrauch_l != null && verbrauch_l !== '' ? parseFloat(verbrauch_l) : null,
+    co2_g_km != null && co2_g_km !== '' ? parseInt(co2_g_km) : null,
+    hubraum_ccm != null && hubraum_ccm !== '' ? parseInt(hubraum_ccm) : null,
+    wertverlust_prozent != null && wertverlust_prozent !== '' ? parseFloat(wertverlust_prozent) : null,
+    wartung_jaehrlich != null && wartung_jaehrlich !== '' ? parseFloat(wartung_jaehrlich) : null,
+    versicherung_jaehrlich != null && versicherung_jaehrlich !== '' ? parseFloat(versicherung_jaehrlich) : null,
     req.params.id
   );
 

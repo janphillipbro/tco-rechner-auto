@@ -12,7 +12,7 @@ function berechneKfzSteuer(fahrzeug) {
 
   const hubraum = fahrzeug.hubraum_ccm || 2000;
   const co2 = fahrzeug.co2_g_km || 150;
-  const istDiesel = (fahrzeug.verbrauch_l || 0) < 6;
+  const istDiesel = false;
 
   const hubraumSteuer = Math.ceil(hubraum / 100) * (istDiesel ? 9.50 : 2);
 

@@ -50,7 +50,7 @@ router.post('/', (req, res) => {
     haltedauerJahre: parseInt(haltedauer_jahre) || 5,
     jahreskilometer: parseInt(jahreskilometer) || 15000,
     strompreisCt: parseFloat(strompreis_ct) || 35,
-    spritpreisCt: parseFloat(spritpreis_ct) || 1.80,
+    spritpreisCt: parseFloat(spritpreis_ct) || 180,
     anlagerenditeProzent: parseFloat(anlagerendite_prozent) || 4,
     kreditzinsProzent: parseFloat(kreditzins_prozent) || 5,
     eigenkapital: parseFloat(eigenkapital) || 0
@@ -130,7 +130,7 @@ router.post('/speichern', (req, res) => {
     parseInt(haltedauer_jahre) || 5,
     parseInt(jahreskilometer) || 15000,
     parseFloat(strompreis_ct) || 35,
-    parseFloat(spritpreis_ct) || 1.80,
+    parseFloat(spritpreis_ct) || 180,
     parseFloat(anlagerendite_prozent) || 4,
     parseFloat(kreditzins_prozent) || 5
   );
