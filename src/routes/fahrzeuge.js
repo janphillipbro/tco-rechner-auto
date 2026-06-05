@@ -39,7 +39,7 @@ router.get('/neu', (req, res) => {
 router.post('/', (req, res) => {
   const { name, typ, kaufpreis, leistung_kw, reichweite_km, stromverbrauch_kwh,
           verbrauch_l, co2_g_km, hubraum_ccm, wertverlust_prozent,
-          wartung_jaehrlich, versicherung_jaehrlich } = req.body;
+          wartung_jaehrlich, versicherung_jaehrlich, ladezeit_min } = req.body;
 
   if (!name || !typ || !kaufpreis) {
     return res.render('fahrzeuge/formular', {
@@ -51,8 +51,8 @@ router.post('/', (req, res) => {
   db.prepare(`
     INSERT INTO fahrzeuge (name, typ, kaufpreis, leistung_kw, reichweite_km,
       stromverbrauch_kwh, verbrauch_l, co2_g_km, hubraum_ccm,
-      wertverlust_prozent, wartung_jaehrlich, versicherung_jaehrlich)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      wertverlust_prozent, wartung_jaehrlich, versicherung_jaehrlich, ladezeit_min)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `).run(
     name, typ, parseFloat(kaufpreis),
     leistung_kw != null && leistung_kw !== '' ? parseInt(leistung_kw) : null,
@@ -63,7 +63,8 @@ router.post('/', (req, res) => {
     hubraum_ccm != null && hubraum_ccm !== '' ? parseInt(hubraum_ccm) : null,
     wertverlust_prozent != null && wertverlust_prozent !== '' ? parseFloat(wertverlust_prozent) : null,
     wartung_jaehrlich != null && wartung_jaehrlich !== '' ? parseFloat(wartung_jaehrlich) : null,
-    versicherung_jaehrlich != null && versicherung_jaehrlich !== '' ? parseFloat(versicherung_jaehrlich) : null
+    versicherung_jaehrlich != null && versicherung_jaehrlich !== '' ? parseFloat(versicherung_jaehrlich) : null,
+    ladezeit_min != null && ladezeit_min !== '' ? parseInt(ladezeit_min) : null
   );
 
   res.redirect('/fahrzeuge');
@@ -82,7 +83,7 @@ router.get('/:id', (req, res) => {
 router.post('/:id', (req, res) => {
   const { name, typ, kaufpreis, leistung_kw, reichweite_km, stromverbrauch_kwh,
           verbrauch_l, co2_g_km, hubraum_ccm, wertverlust_prozent,
-          wartung_jaehrlich, versicherung_jaehrlich } = req.body;
+          wartung_jaehrlich, versicherung_jaehrlich, ladezeit_min } = req.body;
 
   if (!name || !typ || !kaufpreis) {
     const fahrzeug = db.prepare('SELECT * FROM fahrzeuge WHERE id = ?').get(req.params.id);
@@ -96,7 +97,7 @@ router.post('/:id', (req, res) => {
   db.prepare(`
     UPDATE fahrzeuge SET name=?, typ=?, kaufpreis=?, leistung_kw=?, reichweite_km=?,
       stromverbrauch_kwh=?, verbrauch_l=?, co2_g_km=?, hubraum_ccm=?,
-      wertverlust_prozent=?, wartung_jaehrlich=?, versicherung_jaehrlich=?
+      wertverlust_prozent=?, wartung_jaehrlich=?, versicherung_jaehrlich=?, ladezeit_min=?
     WHERE id=?
   `).run(
     name, typ, parseFloat(kaufpreis),
@@ -109,6 +110,7 @@ router.post('/:id', (req, res) => {
     wertverlust_prozent != null && wertverlust_prozent !== '' ? parseFloat(wertverlust_prozent) : null,
     wartung_jaehrlich != null && wartung_jaehrlich !== '' ? parseFloat(wartung_jaehrlich) : null,
     versicherung_jaehrlich != null && versicherung_jaehrlich !== '' ? parseFloat(versicherung_jaehrlich) : null,
+    ladezeit_min != null && ladezeit_min !== '' ? parseInt(ladezeit_min) : null,
     req.params.id
   );
 

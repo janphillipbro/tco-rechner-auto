@@ -24,6 +24,7 @@
           <th>Kaufpreis</th>
           <th>Leistung</th>
           <th>Verbrauch</th>
+          <th>10–80%</th>
           <th></th>
         </tr>
       </thead>
@@ -33,7 +34,7 @@
             <td><%= f.name %></td>
             <td><span class="badge <%= f.typ === 'EV' ? 'ev' : 'ice' %>"><%= f.typ %></span></td>
             <td><%= f.kaufpreis.toLocaleString('de-DE') %> &euro;</td>
-            <td><%= f.leistung_kw || '&mdash;' %> kW</td>
+            <td><%= f.leistung_kw ? f.leistung_kw + ' kW (' + Math.round(f.leistung_kw * 1.35962) + ' PS)' : '&mdash;' %></td>
             <td>
               <% if (f.typ === 'EV') { %>
                 <%= f.stromverbrauch_kwh ? f.stromverbrauch_kwh + ' kWh/100km' : '&mdash;' %>
@@ -41,6 +42,7 @@
                 <%= f.verbrauch_l ? f.verbrauch_l + ' L/100km' : '&mdash;' %>
               <% } %>
             </td>
+            <td><%= f.ladezeit_min ? f.ladezeit_min + ' min' : '&mdash;' %></td>
             <td>
               <a href="/fahrzeuge/<%= f.id %>" class="btn btn-secondary">Bearbeiten</a>
               <form action="/fahrzeuge/<%= f.id %>/delete" method="POST" class="inline-form">

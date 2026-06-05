@@ -28,7 +28,8 @@ db.exec(`
     hubraum_ccm INTEGER,
     wertverlust_prozent REAL,
     wartung_jaehrlich REAL,
-    versicherung_jaehrlich REAL
+    versicherung_jaehrlich REAL,
+    ladezeit_min INTEGER
   );
 
   CREATE TABLE IF NOT EXISTS vergleiche (
@@ -61,6 +62,7 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_vf_fahrzeug_id ON vergleich_fahrzeuge(fahrzeug_id);
 `);
 
+try { db.exec(`ALTER TABLE fahrzeuge ADD COLUMN ladezeit_min INTEGER`); } catch (e) {}
 try { db.exec(`ALTER TABLE vergleich_fahrzeuge ADD COLUMN leasingrate REAL`); } catch (e) {}
 try { db.exec(`ALTER TABLE vergleich_fahrzeuge ADD COLUMN sonderzahlung REAL DEFAULT 0`); } catch (e) {}
 try { db.exec(`ALTER TABLE vergleich_fahrzeuge ADD COLUMN wartung_inklusive INTEGER DEFAULT 0`); } catch (e) {}

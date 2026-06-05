@@ -27,8 +27,11 @@
         <input type="number" id="kaufpreis" name="kaufpreis" step="0.01" value="<%= fahrzeug ? fahrzeug.kaufpreis : '' %>" required>
       </div>
       <div class="form-group">
-        <label for="leistung_kw">Leistung (kW)</label>
+        <label for="leistung_kw">Leistung (kW) — PS wird automatisch berechnet</label>
         <input type="number" id="leistung_kw" name="leistung_kw" value="<%= fahrzeug && fahrzeug.leistung_kw ? fahrzeug.leistung_kw : '' %>">
+        <% if (fahrzeug && fahrzeug.leistung_kw) { %>
+          <span style="font-size:0.85rem; color:#888;"><%= Math.round(fahrzeug.leistung_kw * 1.35962) %> PS</span>
+        <% } %>
       </div>
     </div>
 
@@ -43,6 +46,10 @@
           <label for="stromverbrauch_kwh">Stromverbrauch (kWh/100km)</label>
           <input type="number" id="stromverbrauch_kwh" name="stromverbrauch_kwh" step="0.1" value="<%= fahrzeug && fahrzeug.stromverbrauch_kwh ? fahrzeug.stromverbrauch_kwh : '' %>">
         </div>
+      </div>
+      <div class="form-group">
+        <label for="ladezeit_min">10–80% Ladezeit (Minuten)</label>
+        <input type="number" id="ladezeit_min" name="ladezeit_min" placeholder="z.B. 30" value="<%= fahrzeug && fahrzeug.ladezeit_min ? fahrzeug.ladezeit_min : '' %>">
       </div>
     </fieldset>
 
