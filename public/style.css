@@ -1,0 +1,164 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #1a1a1a;
+  background: #f5f5f5;
+  line-height: 1.5;
+}
+
+nav {
+  background: #1a1a1a;
+  padding: 0 1.5rem;
+  display: flex;
+  gap: 1.5rem;
+}
+nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.75rem 0;
+  font-size: 0.95rem;
+}
+nav a:hover { color: #ccc; }
+nav a.active { border-bottom: 2px solid #4a90d9; }
+
+main { max-width: 1100px; margin: 2rem auto; padding: 0 1.5rem; }
+
+h1 { font-size: 1.5rem; margin-bottom: 1rem; }
+h2 { font-size: 1.2rem; margin: 1.5rem 0 0.75rem; }
+
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: none;
+  color: #fff;
+}
+.btn-primary { background: #4a90d9; }
+.btn-primary:hover { background: #3a7bc8; }
+.btn-danger { background: #d94a4a; }
+.btn-danger:hover { background: #c83a3a; }
+.btn-secondary { background: #888; }
+.btn-secondary:hover { background: #777; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+th, td {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.9rem;
+}
+th { background: #eee; font-weight: 600; }
+tr:nth-child(even) { background: #fafafa; }
+
+form {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  max-width: 600px;
+}
+.form-group { margin-bottom: 1rem; }
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+.form-group input:focus { border-color: #4a90d9; outline: none; }
+.form-row { display: flex; gap: 1rem; }
+.form-row .form-group { flex: 1; }
+fieldset {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+fieldset legend { font-weight: 600; font-size: 0.9rem; padding: 0 0.5rem; }
+
+.filter-bar { margin-bottom: 1rem; display: flex; gap: 0.5rem; }
+.filter-bar a {
+  padding: 0.35rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  text-decoration: none;
+  background: #eee;
+  color: #333;
+}
+.filter-bar a.active { background: #4a90d9; color: #fff; }
+
+.actions { display: flex; gap: 0.5rem; margin-top: 1rem; }
+
+.bar-chart { margin: 1.5rem 0; }
+.bar-row { display: flex; align-items: center; margin-bottom: 0.5rem; }
+.bar-label { width: 180px; font-size: 0.85rem; font-weight: 600; }
+.bar-track { flex: 1; background: #eee; border-radius: 4px; height: 28px; overflow: hidden; }
+.bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  padding-left: 0.5rem;
+  font-size: 0.8rem;
+  color: #fff;
+  white-space: nowrap;
+}
+.bar-fill.ev { background: #4a90d9; }
+.bar-fill.ice { background: #d9a44a; }
+
+.checkbox-list { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; }
+.checkbox-item {
+  display: flex; align-items: center; gap: 0.35rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.checkbox-item:hover { border-color: #4a90d9; }
+.checkbox-item input { margin: 0; }
+.checkbox-item.ev { border-left: 3px solid #4a90d9; }
+.checkbox-item.ice { border-left: 3px solid #d9a44a; }
+
+.summary-cards { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+.summary-card {
+  flex: 1;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.summary-card h3 { font-size: 0.85rem; color: #888; margin-bottom: 0.25rem; }
+.summary-card .value { font-size: 1.4rem; font-weight: 700; }
+.summary-card .value.positive { color: #d94a4a; }
+.summary-card .value.negative { color: #4a9d4a; }
+
+.empty-state { text-align: center; padding: 3rem 1rem; color: #888; }
+.empty-state p { margin-bottom: 1rem; }
+
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.badge.ev { background: #d6e8fb; color: #2a5d9a; }
+.badge.ice { background: #fbe8d6; color: #9a5d2a; }
+
+.inline-form { display: inline; }
