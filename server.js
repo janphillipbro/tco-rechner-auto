@@ -1,8 +1,15 @@
 const express = require('express');
 const path = require('path');
 
+const db = require('./src/db');
+
 const fahrzeugeRoutes = require('./src/routes/fahrzeuge');
 const vergleicheRoutes = require('./src/routes/vergleiche');
+
+const count = db.prepare('SELECT COUNT(*) as cnt FROM fahrzeuge').get().cnt;
+if (count === 0) {
+  require('./seed');
+}
 
 const app = express();
 const PORT = process.env.PORT || 3000;
