@@ -10,6 +10,7 @@ WORKDIR /app
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/src ./src
 COPY --from=build /app/server.js ./
+COPY --from=build /app/seed.js ./
 COPY --from=build /app/public ./public
 COPY --from=build /app/package.json ./
 RUN mkdir -p /app/data && chown node:node /app/data
