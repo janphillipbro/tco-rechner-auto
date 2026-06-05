@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TCO-Rechner</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <nav>
+    <a href="/" <%= typeof active !== 'undefined' && active === 'index' ? 'class="active"' : '' %>>Start</a>
+    <a href="/fahrzeuge" <%= typeof active !== 'undefined' && active === 'fahrzeuge' ? 'class="active"' : '' %>>Fahrzeuge</a>
+    <a href="/vergleiche" <%= typeof active !== 'undefined' && active === 'vergleiche' ? 'class="active"' : '' %>>Vergleiche</a>
+    <a href="/vergleiche/neu" <%= typeof active !== 'undefined' && active === 'vergleich-neu' ? 'class="active"' : '' %>>Neuer Vergleich</a>
+  </nav>
+  <main>
