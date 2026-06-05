@@ -21,6 +21,28 @@ app.get('/', (req, res) => {
 app.use('/fahrzeuge', fahrzeugeRoutes);
 app.use('/vergleiche', vergleicheRoutes);
 
-app.listen(PORT, () => {
+app.use((req, res) => {
+  res.status(404).send('Seite nicht gefunden');
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Interner Serverfehler');
+});
+
+const server = app.listen(PORT, () => {
   console.log(`TCO-Rechner laeuft auf http://localhost:${PORT}`);
+});
+server.on('error', (err) => {
+  console.error('Server konnte nicht gestartet werden:', err.message);
+  process.exit(1);
+});
+
+process.on('SIGTERM', () => {
+  console.log('Server wird beendet...');
+  process.exit(0);
+});
+process.on('SIGINT', () => {
+  console.log('Server wird beendet...');
+  process.exit(0);
 });
