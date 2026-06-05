@@ -1,7 +1,14 @@
 const Database = require('better-sqlite3');
+const fs = require('fs');
 const path = require('path');
 
 const DB_PATH = process.env.DB_PATH || path.join(__dirname, '..', 'data', 'tco.sqlite');
+
+const dataDir = path.dirname(DB_PATH);
+if (!fs.existsSync(dataDir)) {
+  fs.mkdirSync(dataDir, { recursive: true });
+}
+
 const db = new Database(DB_PATH);
 
 db.pragma('journal_mode = WAL');
@@ -42,8 +49,14 @@ db.exec(`
     vergleich_id INTEGER NOT NULL REFERENCES vergleiche(id) ON DELETE CASCADE,
     fahrzeug_id INTEGER NOT NULL REFERENCES fahrzeuge(id) ON DELETE RESTRICT,
     finanzierung TEXT NOT NULL CHECK(finanzierung IN ('cash', 'kredit')),
-    kreditbetrag REAL
+    kreditbetrag REAL,
+    CHECK((finanzierung = 'kredit' AND kreditbetrag IS NOT NULL AND kreditbetrag > 0) OR (finanzierung = 'cash'))
   );
+`);
+
+db.exec(`
+  CREATE INDEX IF NOT EXISTS idx_vf_vergleich_id ON vergleich_fahrzeuge(vergleich_id);
+  CREATE INDEX IF NOT EXISTS idx_vf_fahrzeug_id ON vergleich_fahrzeuge(fahrzeug_id);
 `);
 
 module.exports = db;
