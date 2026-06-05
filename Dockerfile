@@ -12,6 +12,7 @@ COPY --from=build /app/src ./src
 COPY --from=build /app/server.js ./
 COPY --from=build /app/public ./public
 COPY --from=build /app/package.json ./
-RUN mkdir -p /app/data
+RUN mkdir -p /app/data && chown node:node /app/data
+USER node
 EXPOSE 3000
 CMD ["node", "server.js"]
