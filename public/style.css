@@ -60,7 +60,7 @@ th, td {
 th { background: #eee; font-weight: 600; }
 tr:nth-child(even) { background: #fafafa; }
 
-form {
+form:not(.inline-form) {
   background: #fff;
   padding: 1.5rem;
   border-radius: 6px;
@@ -161,4 +161,18 @@ fieldset legend { font-weight: 600; font-size: 0.9rem; padding: 0 0.5rem; }
 .badge.ev { background: #d6e8fb; color: #2a5d9a; }
 .badge.ice { background: #fbe8d6; color: #9a5d2a; }
 
-.inline-form { display: inline; }
+.row-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.inline-form {
+  display: inline-flex;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  max-width: none;
+}

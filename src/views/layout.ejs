@@ -8,9 +8,9 @@
 </head>
 <body>
   <nav>
-    <a href="/" <%= typeof active !== 'undefined' && active === 'index' ? 'class="active"' : '' %>>Start</a>
-    <a href="/fahrzeuge" <%= typeof active !== 'undefined' && active === 'fahrzeuge' ? 'class="active"' : '' %>>Fahrzeuge</a>
-    <a href="/vergleiche" <%= typeof active !== 'undefined' && active === 'vergleiche' ? 'class="active"' : '' %>>Vergleiche</a>
-    <a href="/vergleiche/neu" <%= typeof active !== 'undefined' && active === 'vergleich-neu' ? 'class="active"' : '' %>>Neuer Vergleich</a>
+    <a href="/" class="<%= typeof active !== 'undefined' && active === 'index' ? 'active' : '' %>">Start</a>
+    <a href="/fahrzeuge" class="<%= typeof active !== 'undefined' && active === 'fahrzeuge' ? 'active' : '' %>">Fahrzeuge</a>
+    <a href="/vergleiche" class="<%= typeof active !== 'undefined' && active === 'vergleiche' ? 'active' : '' %>">Vergleiche</a>
+    <a href="/vergleiche/neu" class="<%= typeof active !== 'undefined' && active === 'vergleich-neu' ? 'active' : '' %>">Neuer Vergleich</a>
   </nav>
   <main>

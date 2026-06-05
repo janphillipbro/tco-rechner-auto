@@ -27,10 +27,10 @@
             <td><%= new Date(v.erstellt_am + 'Z').toLocaleDateString('de-DE') %></td>
             <td><%= v.fahrzeug_count %> Fahrzeuge</td>
             <td><%= v.haltedauer_jahre %> Jahre / <%= v.jahreskilometer.toLocaleString('de-DE') %> km</td>
-            <td>
+            <td class="row-actions">
               <a href="/vergleiche/<%= v.id %>" class="btn btn-secondary">Anzeigen</a>
               <form action="/vergleiche/<%= v.id %>/delete" method="POST" class="inline-form">
-                <button type="submit" class="btn btn-danger" onclick="return confirm('Wirklich l\u00f6schen?')">L\u00f6schen</button>
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Wirklich l\u00f6schen?')">L&ouml;schen</button>
               </form>
             </td>
           </tr>

@@ -2,9 +2,9 @@
   <h1>Fahrzeuge</h1>
 
   <div class="filter-bar">
-    <a href="/fahrzeuge" <%= filter === 'alle' ? 'class="active"' : '' %>>Alle</a>
-    <a href="/fahrzeuge?typ=EV" <%= filter === 'EV' ? 'class="active"' : '' %>>Elektro</a>
-    <a href="/fahrzeuge?typ=ICE" <%= filter === 'ICE' ? 'class="active"' : '' %>>Verbrenner</a>
+    <a href="/fahrzeuge" class="<%= filter === 'alle' ? 'active' : '' %>">Alle</a>
+    <a href="/fahrzeuge?typ=EV" class="<%= filter === 'EV' ? 'active' : '' %>">Elektro</a>
+    <a href="/fahrzeuge?typ=ICE" class="<%= filter === 'ICE' ? 'active' : '' %>">Verbrenner</a>
   </div>
 
   <div class="actions">
@@ -36,19 +36,19 @@
             <td><span class="badge <%= f.typ === 'EV' ? 'ev' : 'ice' %>"><%= f.typ %></span></td>
             <td><%= f.listenpreis ? f.listenpreis.toLocaleString('de-DE') + ' \u20ac' : '\u2014' %></td>
             <td><%= f.kaufpreis.toLocaleString('de-DE') %> &euro;</td>
-            <td><%= f.leistung_kw ? f.leistung_kw + ' kW (' + Math.round(f.leistung_kw * 1.35962) + ' PS)' : '&mdash;' %></td>
+            <td><%- f.leistung_kw ? f.leistung_kw + ' kW (' + Math.round(f.leistung_kw * 1.35962) + ' PS)' : '&mdash;' %></td>
             <td>
               <% if (f.typ === 'EV') { %>
-                <%= f.stromverbrauch_kwh ? f.stromverbrauch_kwh + ' kWh/100km' : '&mdash;' %>
+                <%- f.stromverbrauch_kwh ? f.stromverbrauch_kwh + ' kWh/100km' : '&mdash;' %>
               <% } else { %>
-                <%= f.verbrauch_l ? f.verbrauch_l + ' L/100km' : '&mdash;' %>
+                <%- f.verbrauch_l ? f.verbrauch_l + ' L/100km' : '&mdash;' %>
               <% } %>
             </td>
-            <td><%= f.ladezeit_min ? f.ladezeit_min + ' min' : '&mdash;' %></td>
-            <td>
+            <td><%- f.ladezeit_min ? f.ladezeit_min + ' min' : '&mdash;' %></td>
+            <td class="row-actions">
               <a href="/fahrzeuge/<%= f.id %>" class="btn btn-secondary">Bearbeiten</a>
               <form action="/fahrzeuge/<%= f.id %>/delete" method="POST" class="inline-form">
-                <button type="submit" class="btn btn-danger" onclick="return confirm('Wirklich l\u00f6schen?')">L\u00f6schen</button>
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Wirklich l\u00f6schen?')">L&ouml;schen</button>
               </form>
             </td>
           </tr>
