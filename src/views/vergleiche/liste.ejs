@@ -1,0 +1,43 @@
+<%- include('../layout', { active }) %>
+  <h1>Gespeicherte Vergleiche</h1>
+
+  <div class="actions">
+    <a href="/vergleiche/neu" class="btn btn-primary">Neuer Vergleich</a>
+  </div>
+
+  <% if (vergleiche.length === 0) { %>
+    <div class="empty-state">
+      <p>Noch keine Vergleiche gespeichert.</p>
+    </div>
+  <% } else { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Datum</th>
+          <th>Fahrzeuge</th>
+          <th>Haltedauer</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% vergleiche.forEach(v => { %>
+          <tr>
+            <td><%= v.name %></td>
+            <td><%= new Date(v.erstellt_am + 'Z').toLocaleDateString('de-DE') %></td>
+            <td><%= v.fahrzeug_count %> Fahrzeuge</td>
+            <td><%= v.haltedauer_jahre %> Jahre / <%= v.jahreskilometer.toLocaleString('de-DE') %> km</td>
+            <td>
+              <a href="/vergleiche/<%= v.id %>" class="btn btn-secondary">Anzeigen</a>
+              <form action="/vergleiche/<%= v.id %>/delete" method="POST" class="inline-form">
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Wirklich l\u00f6schen?')">L\u00f6schen</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</main>
+</body>
+</html>

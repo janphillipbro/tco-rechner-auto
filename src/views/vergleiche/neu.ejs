@@ -1,0 +1,83 @@
+<%- include('../layout', { active }) %>
+  <h1>Neuer Vergleich</h1>
+
+  <% if (typeof fehler !== 'undefined' && fehler) { %>
+    <p style="color:#d94a4a; margin-bottom:1rem;"><%= fehler %></p>
+  <% } %>
+
+  <% if (fahrzeuge.length === 0) { %>
+    <div class="empty-state">
+      <p>Keine Fahrzeuge vorhanden. Bitte zuerst Fahrzeuge anlegen.</p>
+      <a href="/fahrzeuge/neu" class="btn btn-primary">Fahrzeug anlegen</a>
+    </div>
+  <% } else { %>
+    <form method="POST" action="/vergleiche">
+      <h2>Fahrzeuge ausw&auml;hlen</h2>
+      <% fahrzeuge.forEach((f) => { %>
+        <div class="checkbox-item <%= f.typ === 'EV' ? 'ev' : 'ice' %>" style="display:block; margin-bottom:0.75rem;">
+          <label style="font-weight:600;">
+            <input type="checkbox" name="fahrzeug_ids" value="<%= f.id %>">
+            <%= f.name %>
+            <span class="badge <%= f.typ === 'EV' ? 'ev' : 'ice' %>"><%= f.typ %></span>
+            <%= f.kaufpreis.toLocaleString('de-DE') %> &euro;
+          </label>
+          <div style="margin-top:0.5rem; margin-left:1.5rem; display:flex; gap:0.5rem; align-items:center;">
+            <select name="finanzierung_<%= f.id %>">
+              <option value="cash">Barzahlung</option>
+              <option value="kredit">Kredit</option>
+            </select>
+            <input type="number" name="kreditbetrag_<%= f.id %>" placeholder="Kreditbetrag (EUR)" step="0.01" style="width:180px;">
+          </div>
+        </div>
+      <% }) %>
+
+      <h2>Rahmenparameter</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Name des Vergleichs</label>
+          <input type="text" id="name" name="name" placeholder="z.B. ID.3 vs Golf">
+        </div>
+        <div class="form-group">
+          <label for="eigenkapital">Eigenkapital (EUR)</label>
+          <input type="number" id="eigenkapital" name="eigenkapital" step="0.01" value="0">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="haltedauer_jahre">Haltedauer (Jahre)</label>
+          <input type="number" id="haltedauer_jahre" name="haltedauer_jahre" value="5" min="1" max="15">
+        </div>
+        <div class="form-group">
+          <label for="jahreskilometer">Kilometer pro Jahr</label>
+          <input type="number" id="jahreskilometer" name="jahreskilometer" value="15000" min="1000">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="strompreis_ct">Strompreis (ct/kWh)</label>
+          <input type="number" id="strompreis_ct" name="strompreis_ct" step="0.01" value="35">
+        </div>
+        <div class="form-group">
+          <label for="spritpreis_ct">Spritpreis (ct/L)</label>
+          <input type="number" id="spritpreis_ct" name="spritpreis_ct" step="0.01" value="1.80">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="anlagerendite_prozent">Anlagerendite (% p.a.)</label>
+          <input type="number" id="anlagerendite_prozent" name="anlagerendite_prozent" step="0.1" value="4">
+        </div>
+        <div class="form-group">
+          <label for="kreditzins_prozent">Kreditzins (% p.a.)</label>
+          <input type="number" id="kreditzins_prozent" name="kreditzins_prozent" step="0.1" value="5">
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn btn-primary">Vergleich berechnen</button>
+      </div>
+    </form>
+  <% } %>
+</main>
+</body>
+</html>
