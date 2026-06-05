@@ -1,6 +1,7 @@
 const db = require('./src/db');
 
 const fahrzeuge = [
+  // --- Top 10 Verbrenner ---
   {
     name: 'VW Golf 1.5 eTSI', typ: 'ICE', kaufpreis: 30500,
     leistung_kw: 110, verbrauch_l: 5.4, co2_g_km: 123, hubraum_ccm: 1498
@@ -31,6 +32,22 @@ const fahrzeuge = [
     wertverlust_prozent: 16, wartung_jaehrlich: 850, versicherung_jaehrlich: 950
   },
   {
+    name: 'Audi A4 35 TDI', typ: 'ICE', kaufpreis: 46000,
+    leistung_kw: 120, verbrauch_l: 5.2, co2_g_km: 136, hubraum_ccm: 1968,
+    wertverlust_prozent: 16, wartung_jaehrlich: 800, versicherung_jaehrlich: 950
+  },
+  {
+    name: 'Mercedes C 200', typ: 'ICE', kaufpreis: 48000,
+    leistung_kw: 150, verbrauch_l: 6.4, co2_g_km: 145, hubraum_ccm: 1991,
+    wertverlust_prozent: 17, wartung_jaehrlich: 900, versicherung_jaehrlich: 1000
+  },
+  {
+    name: 'Fiat 500 Hybrid', typ: 'ICE', kaufpreis: 18500,
+    leistung_kw: 51, verbrauch_l: 4.8, co2_g_km: 109, hubraum_ccm: 999
+  },
+
+  // --- Top 10 Elektro ---
+  {
     name: 'Tesla Model Y', typ: 'EV', kaufpreis: 45000,
     leistung_kw: 220, reichweite_km: 455, stromverbrauch_kwh: 16.9, ladezeit_min: 25
   },
@@ -41,6 +58,36 @@ const fahrzeuge = [
   {
     name: 'Skoda Enyaq 85', typ: 'EV', kaufpreis: 42000,
     leistung_kw: 210, reichweite_km: 560, stromverbrauch_kwh: 15.8, ladezeit_min: 28
+  },
+  {
+    name: 'VW ID.3 Pro S', typ: 'EV', kaufpreis: 38500,
+    leistung_kw: 170, reichweite_km: 550, stromverbrauch_kwh: 15.2, ladezeit_min: 30
+  },
+  {
+    name: 'Tesla Model 3', typ: 'EV', kaufpreis: 43000,
+    leistung_kw: 208, reichweite_km: 513, stromverbrauch_kwh: 15.8, ladezeit_min: 25
+  },
+  {
+    name: 'BMW i4 eDrive35', typ: 'EV', kaufpreis: 52500,
+    leistung_kw: 210, reichweite_km: 480, stromverbrauch_kwh: 17.1, ladezeit_min: 30,
+    wartung_jaehrlich: 500, versicherung_jaehrlich: 900
+  },
+  {
+    name: 'Fiat 500e', typ: 'EV', kaufpreis: 26500,
+    leistung_kw: 87, reichweite_km: 320, stromverbrauch_kwh: 14.3, ladezeit_min: 35
+  },
+  {
+    name: 'Audi Q4 e-tron 45', typ: 'EV', kaufpreis: 49000,
+    leistung_kw: 210, reichweite_km: 530, stromverbrauch_kwh: 17.5, ladezeit_min: 28,
+    versicherung_jaehrlich: 950
+  },
+  {
+    name: 'Cupra Born 77 kWh', typ: 'EV', kaufpreis: 39000,
+    leistung_kw: 170, reichweite_km: 540, stromverbrauch_kwh: 16.0, ladezeit_min: 35
+  },
+  {
+    name: 'Hyundai Ioniq 5', typ: 'EV', kaufpreis: 44000,
+    leistung_kw: 168, reichweite_km: 507, stromverbrauch_kwh: 17.0, ladezeit_min: 18
   }
 ];
 
